@@ -71,4 +71,46 @@ SHOW TAG KEYS FROM netflow
 | host |
 | source |
 | src |
-| version
+| version |
+
+
+## 4. Retention Policy 확인
+
+Retention Policy는 데이터의 보존 기간과 관련됩니다.
+
+```sql
+SHOW RETENTION POLICIES ON <database_name>
+```
+
+예: ```netflow``` 데이터베이스에서 Retention Policy 확인
+
+```sql
+SHOW RETENTION POLICIES ON netflow
+```
+
+| name | duration | shardGroupDuration | replicaN | default |
+| --- | --- | --- | --- | --- |  
+| autogen | 0s | 168h0m0s | 1 | true | 
+
+
+## 5. 샘플 데이터 확인
+
+특정 Measurement의 데이터를 일부 확인하여 구조를 파악합니다.
+
+```sql
+SELECT * FROM <measurement_name> LIMIT 5
+```
+
+예: ```netflow``` Measurement에서 데이터 샘플 확인
+
+```sql
+SELECT * FROM netflow LIMIT 5
+```
+
+| Time | bgp_dst_as | bgp_dst_as_name | bgp_next_hop | bgp_next_hop_name | bgp_src_as | bgp_src_as_name | direction | dst | dst_1 | dst_mask | dst_port | first_switched | fwd_reason | fwd_status | host | icmp_code | icmp_type | in_bytes | in_packets | in_snmp | ip_version | last_switched | max_packet_len | max_ttl | min_packet_len | min_ttl | next_hop | out_snmp | protocol | replication_factor | source | src | src_1 | src_mask | src_port | src_tos | tcp_flags | version | 
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | 
+| 2024-12-06 19:19:58.099 | 10049 | null | 210.211.95.90 | null | 4766 | null | egress | null | 211.45.37.231 | 25 | 443 | 4226714262 | not fragmented | forwarded | grafana | 0 | 0 | 93 | 1 | 0 | IPv4 | 4226714262 | 93 | 117 | 93 | 117 | 0.0.0.0 | 259 | tcp | 0 | 210.211.95.237 | null | 222.117.111.2 | 13 | 60417 | 0x00 | ...AP... | NetFlowV9 | 
+| 2024-12-06 19:19:58.099 | 10049 | null | 210.211.95.38 | null | 9318 | null | ingress | null | 124.66.185.32 | 24 | 514 | 4226714312 | unknown | forwarded | grafana | 0 | 0 | 311 | 1 | 257 | IPv4 | 4226714312 | 311 | 58 | 311 | 58 | 210.211.95.38 | 264 | udp | 0 | 210.211.95.237 | null | 218.49.70.130 | 15 | 50604 | 0x00 | ........ | NetFlowV9 | 
+| 2024-12-06 19:19:58.099 | 10049 | null | 210.211.95.90 | null | 9318 | null | ingress | null | 211.45.51.130 | 28 | 443 | 4226714272 | unknown | forwarded | grafana | 0 | 0 | 252 | 1 | 257 | IPv4 | 4226714272 | 252 | 122 | 252 | 122 | 210.211.95.94 | 262 | tcp | 0 | 210.211.95.237 | null | 1.227.133.88 | 13 | 5957 | 0x00 | ...AP... | NetFlowV9 | 
+| 2024-12-06 19:19:58.099 | 10049 | null | 210.211.95.38 | null | 9318 | null | egress | null | 211.45.59.22 | 24 | 0 | 4226714322 | not fragmented | forwarded | grafana | 0 | 0 | 96 | 1 | 0 | IPv4 | 4226714322 | 96 | 57 | 96 | 57 | 0.0.0.0 | 259 | esp | 0 | 210.211.95.237 | null | 180.71.247.147 | 16 | 0 | 0x00 | ........ | NetFlowV9 | 
+| 2024-12-06 19:19:58.099 | 10049 | null | 210.211.95.38 | null | 9318 | null | egress | null | 211.45.59.22 | 24 | 0 | 4226714242 | not fragmented | forwarded | grafana | 0 | 0 | 96 | 1 | 0 | IPv4 | 4226714242 | 96 | 57 | 96 | 57 | 0.0.0.0 | 264 | esp | 0 | 210.211.95.237 | null | 222.237.84.202 | 13 | 0 | 0x00 | ........ | NetFlowV9 | 
